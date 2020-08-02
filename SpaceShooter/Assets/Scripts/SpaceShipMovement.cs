@@ -17,6 +17,8 @@ public class SpaceShipMovement : MonoBehaviour
     private float horizontalAxisInput;
     private float pitchInput;
     private float rollInput;
+
+    public bool bIsAccelerating;
     
     private void Update()
     {
@@ -41,7 +43,11 @@ public class SpaceShipMovement : MonoBehaviour
     private void EngineThrust()
     {
         if(verticalAxisInput > 0.1f)
+        {
             transform.position += transform.forward * fSpeedOfShip * verticalAxisInput;
+            bIsAccelerating = true;
+        }
+        else { bIsAccelerating = false; }
     }
 
     private void RotateShip()
