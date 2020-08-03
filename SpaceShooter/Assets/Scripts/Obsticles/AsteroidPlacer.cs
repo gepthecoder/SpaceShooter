@@ -6,8 +6,8 @@ public class AsteroidPlacer : MonoBehaviour
 {
     [SerializeField] private GameObject[] ASTEROIDS;
 
-    [SerializeField] [Range(10, 50)] private int numOfAsteroids = 10; //X^^3 asteroids
-    [SerializeField] [Range(1, 100)] private int spacingBetweenAsteroids = 5;
+    [SerializeField] [Range(1, 50)] private int numOfAsteroids = 10; //X^^3 asteroids
+    [SerializeField] [Range(1, 10000)] private int spacingBetweenAsteroids = 5;
 
 
     private void Start()
