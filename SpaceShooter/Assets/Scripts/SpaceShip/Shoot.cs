@@ -10,11 +10,13 @@ public class Shoot : MonoBehaviour
     [SerializeField] private Transform shootPosL;
     [SerializeField] private Transform shootPosR;
 
-
-    [SerializeField] private float damage = 10f;
+    [SerializeField] private Laser[] LASERS;
 
     private float fireRate = .2f;
     private float fireTimer;
+
+    private float laserFireRate = .1f;
+    private float laserfireTimer;
 
     private void Update()
     {
@@ -25,6 +27,18 @@ public class Shoot : MonoBehaviour
         {
             ShootProjectiles();
             fireTimer = 0;
+        }
+
+        laserfireTimer += Time.deltaTime;
+        bool bCanFireLaser = laserfireTimer > laserFireRate;
+
+        if (CrossPlatformInputManager.GetButtonDown("FireLaser") && bCanFireLaser)
+        {
+            foreach(Laser laser in LASERS)
+            {
+                laser.canFireLaser = true;
+                laser.FireSuperSonicLaser();
+            }
         }
     }
     

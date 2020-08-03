@@ -37,8 +37,12 @@ public class CombatAttack : MonoBehaviour
 	[Range(0.5f, 60f)]
 	public float toAssignToHittedObjectDuration = 2f;
 
+    [Range(10f, 10000f)]
+    public float hitForce = 1000f;
+    [Range(1f, 100f)]
+    public float explosionRadius = 10f;
 
-	GameObject hittedGameObject = null;
+    GameObject hittedGameObject = null;
 
 	Material[] hittedGameObjectFirstMaterials = null;
 
@@ -210,12 +214,33 @@ public class CombatAttack : MonoBehaviour
 
             if(hittedGameObject != null)
             {
-                EnemyHealth enemyHealth = hittedGameObject.transform.root.gameObject.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
+                if(hittedGameObject.tag == "Enemy")
                 {
-                    enemyHealth.DamageEnemy(projectileDamage);
+                    EnemyHealth enemyHealth = hittedGameObject.GetComponent<EnemyHealth>();
+
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.DamageEnemy(projectileDamage);
+                    }
+
+                    Rigidbody rb = hittedGameObject.GetComponent<Rigidbody>();
+                    if(rb!=null)
+                        rb.AddExplosionForce(hitForce, toInstantiatePosition, explosionRadius, 8f, ForceMode.Impulse);
+
                 }
-                else { Debug.Log("Hitted something else"); }
+                else if (hittedGameObject.tag == "Asteroid")
+                {
+                    Asteroid asteroidHealth = hittedGameObject.name == "Collider" ? hittedGameObject.transform.parent.GetComponent<Asteroid>() : hittedGameObject.transform.GetComponent<Asteroid>();
+                    if (asteroidHealth != null)
+                    {
+                        asteroidHealth.DamageAsteroid(projectileDamage);
+
+                        Rigidbody rb = asteroidHealth.GetComponent<Rigidbody>();
+                        if (rb != null)
+                            rb.AddExplosionForce(hitForce, toInstantiatePosition, explosionRadius, 8f, ForceMode.Impulse);
+                    }
+                }
+                else { Debug.Log("Hitted something else: " + hittedGameObject.name); }
             }
 
 			DestroyImmediate(gameObject);
