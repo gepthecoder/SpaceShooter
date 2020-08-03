@@ -7,19 +7,41 @@ public class SpaceShipHealth : MonoBehaviour
 {
     [Header("H E A L T H")]
     [Space(5)]
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 200;
     public int currentHealth;
     public bool isDead = false;
+    private bool _damaged;
     [Header("G U I")]
     [Space(5)]
     [SerializeField] private Image health_slider;
     [SerializeField] private Text health_text;
     [SerializeField] private float fillSpeedInSec = .5f;
+    [Header("E F F E C T")]
+    [Space(5)]
+    [SerializeField]
+    private Image damageImage;
+    [SerializeField]
+    private float flashSpeed = .5f;
+    [SerializeField]
+    private Color flashColor = new Color(1f, 0f, 0f, .5f);
+    [SerializeField]
+    private GameObject damageExplosion;
+    [SerializeField]
+    private AudioSource explosionSource;
+    [SerializeField]
+    private AudioClip explosionClip;
 
-    void Start()
+    private void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthInfo();
+    }
+
+    private void Update()
+    {
+        if (_damaged) { damageImage.color = flashColor; }
+        else { damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime); }
+        _damaged = false;
     }
 
     public void DamageShuttle(int amount)
@@ -31,10 +53,11 @@ public class SpaceShipHealth : MonoBehaviour
         currentHealth -= amount;
         StartCoroutine(ChangeToPct((float)currentHealth / (float)maxHealth));
         UpdateHealthInfo();
+        AddExplosionEffect();
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
-            // PLAYER IS DEAD -> DISPLAY GAME OVER EFFECT
+            AddExplosionEffect();
             Dead();
         }
     }
@@ -58,6 +81,14 @@ public class SpaceShipHealth : MonoBehaviour
     private void Dead()
     {
         isDead = true;
+        GameOverManager.Instance.GAME_OVER();
+    }
+
+    private void AddExplosionEffect()
+    {
+        GameObject exPlosion = Instantiate(damageExplosion, transform.position, Quaternion.identity, transform);
+        Destroy(exPlosion, 1.5f);
+        explosionSource.PlayOneShot(explosionClip);
     }
 
 }
