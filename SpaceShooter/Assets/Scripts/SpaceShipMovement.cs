@@ -7,10 +7,13 @@ public class SpaceShipMovement : MonoBehaviour
 {
     [SerializeField]
     [Range(1, 50)]
-    private float fSpeedOfShip = 20f;
+    private float fSpeedOfShip = 1.3f;
+    [SerializeField]
+    [Range(1, 1000)]
+    private float fHyperSpeedOfShip = 20f;
 
     [SerializeField]
-    [Range(1, 50)]
+    [Range(1, 100)]
     private float fTurnSpeedOfShip = 40f;
 
     private float verticalAxisInput;
@@ -18,12 +21,19 @@ public class SpaceShipMovement : MonoBehaviour
     private float pitchInput;
     private float rollInput;
 
+    private bool bHyperJump;
+
     public bool bIsAccelerating;
-    
+    public bool bIsAcceleratingToSpeedOfLight;
+
+    private SpaceShipHealth health;
+
+    private void Start() { health = GetComponent<SpaceShipHealth>(); }
+
     private void Update()
     {
         //INPUTS
-
+        IS_DEAD();
         // MOVEMENT
         verticalAxisInput = CrossPlatformInputManager.GetAxis("Vertical");
         horizontalAxisInput = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -31,23 +41,38 @@ public class SpaceShipMovement : MonoBehaviour
         pitchInput = CrossPlatformInputManager.GetAxis("Pitch");
         // ROLL
         rollInput = CrossPlatformInputManager.GetAxis("Roll");
+        // HYPER JUMP
+        bHyperJump = KillManager.Instance.bActivateHyperJump;
     }
 
     private void FixedUpdate()
     {
+        IS_DEAD();
+
         EngineThrust();
         RotateShip();
     }
 
-
     private void EngineThrust()
     {
-        if(verticalAxisInput > 0.1f)
+        if (!bHyperJump)
         {
-            transform.position += transform.forward * fSpeedOfShip * verticalAxisInput;
-            bIsAccelerating = true;
+            bIsAcceleratingToSpeedOfLight = false;
+
+            if (verticalAxisInput > 0.1f)
+            {
+                transform.position += transform.forward * fSpeedOfShip * verticalAxisInput;
+                bIsAccelerating = true;
+            }
+            else { bIsAccelerating = false; }
         }
-        else { bIsAccelerating = false; }
+        else
+        {
+            // HYPER JUMP
+            transform.position += transform.forward * fHyperSpeedOfShip * 1;
+            bIsAcceleratingToSpeedOfLight = true;
+        }
+       
     }
 
     private void RotateShip()
@@ -57,5 +82,10 @@ public class SpaceShipMovement : MonoBehaviour
         float fRotRollZ = fTurnSpeedOfShip * rollInput * Time.deltaTime;
 
         transform.Rotate(-fRotPitchX, fRotShipY, fRotRollZ);
+    }
+
+    private void IS_DEAD()
+    {
+        if (health.isDead) { return; }
     }
 }

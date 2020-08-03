@@ -88,6 +88,9 @@ namespace UnityStandardAssets.CrossPlatformInput
         {
             foreach (Transform t in transform)
             {
+                if (t.name == "HyperJumpButton")
+                    continue;
+
                 t.gameObject.SetActive(enabled);
             }
         }
