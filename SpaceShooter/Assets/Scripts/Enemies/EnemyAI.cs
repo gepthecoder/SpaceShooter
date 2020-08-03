@@ -25,6 +25,10 @@ public class EnemyAI : MonoBehaviour
     [Space(5)]
     [Range(5, 10000)]
     [SerializeField] private float chaseRadius = 50f;
+    [Space(5)]
+    [SerializeField]
+    private GameObject explosiveDetonationEffect;
+
 
     private Transform       player_target;
     private SpaceShipHealth player_health;
@@ -32,6 +36,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyHealth enemyHealth;
 
     private float attackCoolDown;
+    private float detonationTime = 2f;
 
     private void Start()
     {
@@ -66,6 +71,7 @@ public class EnemyAI : MonoBehaviour
                             if (player_health != null)
                             {
                                 anime.SetTrigger("Attack");
+                                StartCoroutine(DetonationTriggered());
                             }
                             attackCoolDown = attackSpeed;
                         }
@@ -98,6 +104,38 @@ public class EnemyAI : MonoBehaviour
         player_health.DamageShuttle(damage);
     }
 
+    private IEnumerator DetonationTriggered()
+    {
+        float t = 0f;
+        while (t <= detonationTime)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        if(t >= detonationTime) { Detonate(30); }
+    }
+
+    private void Detonate(int additionalDamage)
+    {
+        GameObject temp = Instantiate(explosiveDetonationEffect, transform.position, transform.rotation);
+        Destroy(temp, 1.5f);
+        StartCoroutine(ShrinkToSingularity());
+    }
+
+    private IEnumerator ShrinkToSingularity()
+    {
+        float t = 0f;
+
+        while (t <= 2f)
+        {
+            t += Time.deltaTime;
+            transform.localScale = new Vector3(transform.localScale.x - .1f, transform.localScale.y - .1f, transform.localScale.z - .1f);
+            yield return null;
+        }
+
+        if (t >= 2f) { Destroy(gameObject); }
+    }
     #region Gizmos
     void OnDrawGizmosSelected()
     {
