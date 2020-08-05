@@ -37,8 +37,8 @@ public class CombatAttack : MonoBehaviour
 	[Range(0.5f, 60f)]
 	public float toAssignToHittedObjectDuration = 2f;
 
-    [Range(10f, 10000f)]
-    public float hitForce = 1000f;
+    [Range(1f, 20f)]
+    public float hitForce = 2f;
     [Range(1f, 100f)]
     public float explosionRadius = 10f;
 
@@ -46,6 +46,7 @@ public class CombatAttack : MonoBehaviour
 
 	Material[] hittedGameObjectFirstMaterials = null;
 
+    public bool isEnemySpaceShipProjectile = false;
 
 	[Header("Sounds:")]
 	public bool haveSpawnSound = false;
@@ -108,7 +109,8 @@ public class CombatAttack : MonoBehaviour
 
 			if(myAudioSource == null)
 				myAudioSource = gameObject.AddComponent<AudioSource>();
-		}
+            myAudioSource.volume = .5f;
+        }
 	}
 
 	void PlaySoundOneShot (AudioClip ac)
@@ -120,7 +122,7 @@ public class CombatAttack : MonoBehaviour
 			return;
 
 		myAudioSource.Stop ();
-
+        myAudioSource.volume = .1f;
 		myAudioSource.playOnAwake = false;
 
 		myAudioSource.loop = false;
@@ -214,13 +216,25 @@ public class CombatAttack : MonoBehaviour
 
             if(hittedGameObject != null)
             {
-                if(hittedGameObject.tag == "Enemy")
+                Debug.Log("<color=red>Hitted: </color>" + hittedGameObject.tag);
+                if (hittedGameObject.tag == "Enemy")
                 {
-                    EnemyHealth enemyHealth = hittedGameObject.GetComponent<EnemyHealth>();
-
-                    if (enemyHealth != null)
+                    if (hittedGameObject.transform.parent.name.Contains("Ship"))
                     {
-                        enemyHealth.DamageEnemy(projectileDamage);
+                        EnemyShipAI enemyHealth = hittedGameObject.transform.root.GetComponent<EnemyShipAI>();
+                        if (enemyHealth != null)
+                        {
+                            enemyHealth.DamageEnemy(projectileDamage);
+                        }
+                    }
+                    else
+                    {
+                        EnemyHealth enemyHealth = hittedGameObject.GetComponent<EnemyHealth>();
+
+                        if (enemyHealth != null)
+                        {
+                            enemyHealth.DamageEnemy(projectileDamage);
+                        }
                     }
 
                     Rigidbody rb = hittedGameObject.GetComponent<Rigidbody>();
@@ -230,12 +244,25 @@ public class CombatAttack : MonoBehaviour
                 }
                 else if (hittedGameObject.tag == "Asteroid")
                 {
+                    if (isEnemySpaceShipProjectile) { return; }
                     Asteroid asteroidHealth = hittedGameObject.name == "Collider" ? hittedGameObject.transform.parent.GetComponent<Asteroid>() : hittedGameObject.transform.GetComponent<Asteroid>();
                     if (asteroidHealth != null)
                     {
                         asteroidHealth.DamageAsteroid(projectileDamage);
 
                         Rigidbody rb = asteroidHealth.GetComponent<Rigidbody>();
+                        if (rb != null)
+                            rb.AddExplosionForce(hitForce, toInstantiatePosition, explosionRadius, 8f, ForceMode.Impulse);
+                    }
+                }
+                else if (hittedGameObject.tag == "Player")
+                {
+                    SpaceShipHealth playerHealth = hittedGameObject.transform.GetComponent<SpaceShipHealth>();
+                    if (playerHealth != null)
+                    {
+                        playerHealth.DamageShuttle(projectileDamage);
+
+                        Rigidbody rb = playerHealth.GetComponent<Rigidbody>();
                         if (rb != null)
                             rb.AddExplosionForce(hitForce, toInstantiatePosition, explosionRadius, 8f, ForceMode.Impulse);
                     }

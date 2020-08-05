@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class SpaceShipMovement : MonoBehaviour
@@ -11,10 +12,13 @@ public class SpaceShipMovement : MonoBehaviour
     [SerializeField]
     [Range(1, 1000)]
     private float fHyperSpeedOfShip = 20f;
-
     [SerializeField]
     [Range(1, 100)]
     private float fTurnSpeedOfShip = 40f;
+    [SerializeField]
+    private ParticleSystem space_effect;
+    [SerializeField]
+    private Text spaceShipSpeedTxt;
 
     private float verticalAxisInput;
     private float horizontalAxisInput;
@@ -43,6 +47,8 @@ public class SpaceShipMovement : MonoBehaviour
         rollInput = CrossPlatformInputManager.GetAxis("Roll");
         // HYPER JUMP
         bHyperJump = KillManager.Instance.bActivateHyperJump;
+
+        HandleSpeedGUI();
     }
 
     private void FixedUpdate()
@@ -63,13 +69,14 @@ public class SpaceShipMovement : MonoBehaviour
             {
                 transform.position += transform.forward * fSpeedOfShip * verticalAxisInput;
                 bIsAccelerating = true;
+                if(verticalAxisInput > 0.3f) { space_effect.Play(); }
             }
-            else { bIsAccelerating = false; }
+            else { bIsAccelerating = false; space_effect.Stop(); }
         }
         else
         {
             // HYPER JUMP
-            transform.position += transform.forward * fHyperSpeedOfShip * 1;
+            transform.position += transform.forward * fHyperSpeedOfShip;
             bIsAcceleratingToSpeedOfLight = true;
         }
        
@@ -87,5 +94,14 @@ public class SpaceShipMovement : MonoBehaviour
     private void IS_DEAD()
     {
         if (health.isDead) { return; }
+    }
+
+    private void HandleSpeedGUI()
+    {
+        float multiplier = 10000f;
+        float baseSpeed = bIsAcceleratingToSpeedOfLight ? fHyperSpeedOfShip : fSpeedOfShip;
+        float inputMultiplier = bIsAcceleratingToSpeedOfLight ? 1f : verticalAxisInput;
+        float temp = baseSpeed * multiplier * inputMultiplier;
+        spaceShipSpeedTxt.text = temp.ToString() + " mph";
     }
 }

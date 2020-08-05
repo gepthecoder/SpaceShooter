@@ -7,7 +7,7 @@ public class Laser : MonoBehaviour
 {
     [SerializeField] private float laserDuration = .5f;
     [SerializeField] private int laserDamage = 5;
-    [Range(10, 10000)] [SerializeField] private float hitForce = 1000f;
+    [Range(10, 10000)] [SerializeField] private float hitForce = 5f;
     [Range(1, 100)] [SerializeField] private float explosionRadius = 10f;
 
 
@@ -40,9 +40,19 @@ public class Laser : MonoBehaviour
             Debug.Log("Hit info: " + hitInfo.transform.tag);
             if (hitInfo.transform.tag == "Enemy")
             {
-                EnemyHealth health = hitInfo.transform.GetComponent<EnemyHealth>();
-                if(health != null)
-                    health.DamageEnemy(laserDamage);
+                if (hitInfo.transform.name.Contains("Ship"))
+                {
+                    EnemyShipAI health = hitInfo.transform.GetComponent<EnemyShipAI>();
+                    if (health != null)
+                        health.DamageEnemy(laserDamage);
+                }
+                else
+                {
+                    EnemyHealth health = hitInfo.transform.GetComponent<EnemyHealth>();
+                    if (health != null)
+                        health.DamageEnemy(laserDamage);
+                }
+            
                 Rigidbody rb = hitInfo.transform.GetComponent<Rigidbody>();
                 if(rb != null)
                     rb.AddExplosionForce(hitForce, hitInfo.point, explosionRadius, 4f, ForceMode.Impulse);
@@ -70,11 +80,18 @@ public class Laser : MonoBehaviour
 
     public void FireSuperSonicLaser()
     {
+        Vector3 pos = CastLaserRay();
+        FireSuperSonicLaser(pos);
+    }
+
+    // overload function
+    public void FireSuperSonicLaser(Vector3 targetPos)
+    {
         if (canFireLaser)
         {
             PLAY_LASER_SOUND();
             laser.SetPosition(0, transform.position);
-            laser.SetPosition(1, CastLaserRay());
+            laser.SetPosition(1, targetPos);
             laser.enabled = true;
             shootLight.enabled = true;
             canFireLaser = false;
