@@ -26,6 +26,9 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     [Range(1f, 1000f)]
     private float rotationSpeed = 100f;
+    [SerializeField]
+    [Range(1f, 1000f)]
+    private float accelerationForce = 150f;
 
     public GameObject destroyEffect;
     [Header("S F X")]
@@ -56,7 +59,7 @@ public class Asteroid : MonoBehaviour
     private void Update()
     {
         RotateAsteroid();
-        rb.velocity = GenerateRandomVector(100f, 600f);
+        rb.AddForce(transform.forward * accelerationForce);        
     }
 
     void OnTriggerEnter(Collider other)
