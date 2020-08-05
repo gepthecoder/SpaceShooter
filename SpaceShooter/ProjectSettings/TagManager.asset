@@ -8,6 +8,7 @@ TagManager:
   - torso
   - FxTemporaire
   - Asteroid
+  - cleanUp
   layers:
   - Default
   - TransparentFX
