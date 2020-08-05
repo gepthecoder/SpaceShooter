@@ -7,10 +7,18 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] private Image foregroundImage;
     [SerializeField] private float fillSpeedInSec = .5f;
 
+    public bool isSpaceShip = false;
+
     private void Awake()
     {
-
-        GetComponentInParent<EnemyHealth>().OnHealthPctChanged += EnemyHealth_OnHealthPctChanged;
+        if (!isSpaceShip)
+        {
+            GetComponentInParent<EnemyHealth>().OnHealthPctChanged += EnemyHealth_OnHealthPctChanged;
+        }
+        else
+        {
+            GetComponentInParent<EnemyShipAI>().OnHealthPctChanged += EnemyHealth_OnHealthPctChanged;
+        }
     }
 
     private void LateUpdate()
