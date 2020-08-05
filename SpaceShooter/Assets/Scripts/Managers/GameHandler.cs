@@ -22,4 +22,6 @@ public class GameHandler : MonoBehaviour
 
     public Transform PLAYER;
     public SpaceShipHealth SHIP_HEALTH;
+
+    public ParticleSystem WARP_SPACE;
 }

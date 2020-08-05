@@ -24,19 +24,22 @@ public class ScoreManager : MonoBehaviour
 
     public Animator[] scorePopUps;
     public int SCORE = 0;
+    public int BEST_SCORE;
 
     void Awake()
     {
         instance = this;
 
-        if (PlayerPrefs.HasKey("SCORE"))
+        if (PlayerPrefs.HasKey("BEST_SCORE"))
         {
-            SCORE = PlayerPrefs.GetInt("SCORE", 0);
+            BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE", 0);
         }
         else
         {
             SAVE_SCORE();
         }
+
+        SCORE = 0;
     }
 
     void Start()
@@ -46,7 +49,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SAVE_SCORE()
     {
-        PlayerPrefs.SetInt("SCORE", SCORE);
+        PlayerPrefs.SetInt("SCORE", BEST_SCORE);
     }
 
     public void UPDATE_SCORE(int byAmount)

@@ -40,9 +40,9 @@ public class KillManager : MonoBehaviour
 
     void Start()
     {
-        destructionFillImage.fillAmount = .9f;
-        destructionCounter = 90;
-        bCanPerformHyperJump = false;
+        destructionFillImage.fillAmount = 1f;
+        destructionCounter = 100;
+        bCanPerformHyperJump = true;
 
         hyperButton = hyperJumpButtonObj.GetComponent<Button>();
         fillImageAnime = destructionFillImage.GetComponent<Animator>();
@@ -60,11 +60,13 @@ public class KillManager : MonoBehaviour
             //activate slider effect
             if (CrossPlatformInputManager.GetButtonDown("HyperJump"))
             {
-                SlowTime();
+                //SlowTime();
                 bCanPerformHyperJump = false;
                 hyperButton.interactable = false;
                 //perform hyper jump
                 bActivateHyperJump = true;
+                //activate warp time effect
+                GameHandler.Instance.WARP_SPACE.Play();
                 StartCoroutine(HYPER_EFFECT_GUI());
             }
         }
@@ -79,7 +81,7 @@ public class KillManager : MonoBehaviour
         {
             destructionCounter -= 1;
             destructionFillImage.fillAmount = (float)destructionCounter / (float)maxRage;
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(.05f);
         }
 
         if(destructionCounter <= 0)
@@ -87,7 +89,8 @@ public class KillManager : MonoBehaviour
             bActivateHyperJump = false;
             hyperJumpButtonObj.SetActive(false);
             fillImageAnime.SetBool("effect", false);
-            DefaultTime();
+            //DefaultTime();
+            GameHandler.Instance.WARP_SPACE.Stop();
         }
     }
 
