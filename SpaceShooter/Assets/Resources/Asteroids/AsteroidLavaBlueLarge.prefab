@@ -142,14 +142,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860345ac0ffbffa4b854631ae50c3448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  minScale: 3.4
-  maxScale: 7.7
+  health: 50
+  minScale: 7.1
+  maxScale: 15
   rotationSpeed: 83
+  accelerationForce: 84
   destroyEffect: {fileID: 1053708860299398717, guid: 5ec7bc22218f69a41a8e566635076478,
     type: 3}
   destroySoundEffect: {fileID: 8300000, guid: f1b53db355b9bb149b6a892b36e17890, type: 3}
   hitSoundEffect: {fileID: 8300000, guid: 6c149e3cb7b67e24b999024213552ebf, type: 3}
+  hitPoints: 50
+  destroyPoints: 200
 --- !u!64 &7907473562649742489
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -281,11 +284,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7907473562649742486}
   serializedVersion: 2
-  m_Mass: 20
+  m_Mass: 500
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
