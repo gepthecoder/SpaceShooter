@@ -42,6 +42,11 @@ public class EnemyShipAI : MonoBehaviour
     [Range(1, 100)]
     [SerializeField]
     private float deathExplosionForce = 30f;
+    [Header("S O U N D  F X")]
+    [SerializeField]
+    private AudioSource deathExplosionSource;
+    [SerializeField]
+    private AudioClip deathExplosionSoundFX;
 
     private float fireTimer;
     private Vector3 hitPos;
@@ -209,13 +214,17 @@ public class EnemyShipAI : MonoBehaviour
         isDead = true;
         ScoreManager.Instance.UPDATE_SCORE(killPoints);
         ScoreManager.Instance.PLAY_RANDOM_POP_UP(killPoints.ToString());
+        KillManager.Instance.IncreaseDestructionRage(30);
         Destroy(healthBar);
         ExplosionEffect();
     }
 
     private void ExplosionEffect()
     {
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        GameObject go = Instantiate(explosionEffect, transform.position, transform.rotation);
+        deathExplosionSource.PlayOneShot(deathExplosionSoundFX);
+        Destroy(go, 3f);
+        #region Snippet
         Collider[] PARTS = Physics.OverlapSphere(transform.position, deathExplosionRadius);
 
         foreach(Collider part in PARTS)
@@ -233,7 +242,14 @@ public class EnemyShipAI : MonoBehaviour
 
         GameObject[] waste = GameObject.FindGameObjectsWithTag("cleanUp");
         foreach(GameObject part in waste) { Destroy(part, 4f); }
+        #endregion
+        StartCoroutine(REWARD());
+    }
 
-        Destroy(gameObject, 1f);
+    IEnumerator REWARD()
+    {
+        yield return new WaitForSeconds(1.5f);
+        CollectableManager.Instance.SPAWN_RANDOM_COLLECTABLE(transform);
+        Destroy(gameObject);
     }
 }

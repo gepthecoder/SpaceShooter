@@ -80,7 +80,8 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Instantiate(explosionEffect, transform.position, Quaternion.identity, transform);
         yield return new WaitForSeconds(1f);
-        KillManager.Instance.IncreaseDestructionRage(20);
+        KillManager.Instance.IncreaseDestructionRage(10);
+        CollectableManager.Instance.SPAWN_RANDOM_COLLECTABLE(transform);
         Destroy(gameObject);
     }
 

@@ -52,6 +52,8 @@ public class EnemyAI : MonoBehaviour
     {
         if(player_target != null && !enemyHealth.isDead)
         {
+            if (player_target.GetComponent<SpaceShipHealth>().isDead) { return; }
+
             float playerDistance = Vector3.Distance(player_target.position, transform.position);
             attackCoolDown -= Time.deltaTime;
 
