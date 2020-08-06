@@ -11875,6 +11875,7 @@ GameObject:
   - component: {fileID: 1176238204649587568}
   - component: {fileID: 1176238204649587569}
   - component: {fileID: 1176238204649587570}
+  - component: {fileID: 8487064717247686879}
   m_Layer: 0
   m_Name: StarSparrow_Core
   m_TagString: Ship
@@ -11961,6 +11962,102 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &8487064717247686879
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176238204649587564}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: cc438bbda1ae76b4b8af8f165f95f793, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.108
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1176238204756272476
 GameObject:
   m_ObjectHideFlags: 0
@@ -12976,6 +13073,7 @@ GameObject:
   - component: {fileID: 1176238205211930521}
   - component: {fileID: 1176238205211930522}
   - component: {fileID: 637078165856687996}
+  - component: {fileID: 4260047968859678959}
   m_Layer: 0
   m_Name: EnemyShipLarge
   m_TagString: Ship
@@ -13031,12 +13129,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationalDamp: 1
   moveSpeed: 10
+  avoidenceRadius: 52
   LASERS:
   - {fileID: 1176238205077049642}
   - {fileID: 1176238204387368951}
   - {fileID: 1176238204387368951}
-  maxDistance: 1500
-  fireRate: 2
+  maxDistance: 838
+  fireRate: 4
   Missile: {fileID: 1224811046360095131, guid: 12f0e5b3d9543e946a58677f7fb1ebaa, type: 3}
   shootPosL: {fileID: 1176238203576803143}
   shootPosR: {fileID: 1176238205370624921}
@@ -13178,6 +13277,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &4260047968859678959
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176238205211930523}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.04, y: 2.06, z: 8.94}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1176238205306987711
 GameObject:
   m_ObjectHideFlags: 0

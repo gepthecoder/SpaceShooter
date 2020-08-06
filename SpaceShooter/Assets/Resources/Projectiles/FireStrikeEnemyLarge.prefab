@@ -4945,8 +4945,9 @@ MonoBehaviour:
   haveToAssignTemporaryMaterialToHittedObject: 0
   toAssignToHittedObject: {fileID: 0}
   toAssignToHittedObjectDuration: 2
-  hitForce: 2
+  hitForce: 20
   explosionRadius: 10
+  hitSoundVolume: 0.17
   isEnemySpaceShipProjectile: 1
   haveSpawnSound: 1
   spawnSound: {fileID: 8300000, guid: 37084305e1d0b684abd6c123b541d415, type: 3}

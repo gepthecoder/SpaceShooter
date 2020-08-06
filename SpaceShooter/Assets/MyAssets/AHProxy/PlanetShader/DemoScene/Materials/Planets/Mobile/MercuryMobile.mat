@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: MercuryMobile
   m_Shader: {fileID: 4800000, guid: 7d21e0a83355f5a46b9d3e26f94060bf, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
@@ -21,6 +22,10 @@ Material:
     m_TexEnvs:
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: ffea62e73a92e234d9280a32e736db04, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CityLightMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CloudMap:
@@ -52,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 60276f11285826849a00a990c54368ed, type: 3}
+        m_Texture: {fileID: 2800000, guid: b617caa5ef54773409f566190c82a16d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -79,6 +84,7 @@ Material:
     - _AtmosphereDensity: 0
     - _AtmosphereStrength: 4.88
     - _BumpScale: 5
+    - _CityLightIntensity: 0
     - _CloudMapSpecularity: -0.05
     - _CloudPanSpeed: -0.28
     - _Cutoff: 0.5
@@ -107,6 +113,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AtmosphereColor: {r: 0, g: 0, b: 0, a: 1}
+    - _CityLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _CloudColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 0.77205884, g: 0.77205884, b: 0.77205884, a: 1}

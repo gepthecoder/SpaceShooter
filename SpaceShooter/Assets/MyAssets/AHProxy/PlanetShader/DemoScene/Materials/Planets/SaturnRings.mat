@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: SaturnRings
   m_Shader: {fileID: 4800000, guid: 0bedcb26456f2ca409c6a23f2718da3a, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON
@@ -43,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 15ed8f382b5a3d442a0e42d26aaefa5a, type: 3}
+        m_Texture: {fileID: 2800000, guid: b617caa5ef54773409f566190c82a16d, type: 3}
         m_Scale: {x: 1, y: 0.72}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

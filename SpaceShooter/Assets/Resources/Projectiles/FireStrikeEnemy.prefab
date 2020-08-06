@@ -4856,6 +4856,7 @@ MonoBehaviour:
   toAssignToHittedObjectDuration: 2
   hitForce: 2
   explosionRadius: 10
+  hitSoundVolume: 0.109
   isEnemySpaceShipProjectile: 1
   haveSpawnSound: 1
   spawnSound: {fileID: 8300000, guid: 37084305e1d0b684abd6c123b541d415, type: 3}
