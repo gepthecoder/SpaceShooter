@@ -84,7 +84,7 @@ Material:
     - _AtmosphereDensity: 5
     - _AtmosphereStrength: 4.88
     - _BumpScale: 5
-    - _CityLightIntensity: 0.4
+    - _CityLightIntensity: 1.37
     - _CloudMapSpecularity: -0.07
     - _CloudPanSpeed: -0.08
     - _Cutoff: 0.5
