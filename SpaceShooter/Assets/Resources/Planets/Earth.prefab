@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2428d1f34e850404d929653306f2a06d, type: 2}
+  - {fileID: 2100000, guid: 5aaff034f90869f4891c8248fb8d44dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -139,6 +139,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3237307110588750938}
+  - component: {fileID: 4495117337382025892}
+  - component: {fileID: 3740469582163912869}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -161,6 +163,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4495117337382025892
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237307110588750939}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3740469582163912869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237307110588750939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a504d46cbc39d34a9e0f4eb03cc5f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyEffect: {fileID: 8885019628996726727, guid: 27b32a1f28c5c5e4daea418a72285b1b,
+    type: 3}
+  maxHealth: 1000
+  health: 0
+  damage: 1000
 --- !u!1001 &3237307111451343879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -168,22 +201,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3237307110149708900}
     m_Modifications:
-    - target: {fileID: 100000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2428d1f34e850404d929653306f2a06d, type: 2}
-    - target: {fileID: 2300000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3300000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 541dc450e82531b4b950cd204a82c77b, type: 3}
     - target: {fileID: 400000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -239,6 +256,22 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3300000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 541dc450e82531b4b950cd204a82c77b, type: 3}
+    - target: {fileID: 2300000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2428d1f34e850404d929653306f2a06d, type: 2}
+    - target: {fileID: 2300000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 149587925a91bac48b3b9be502da4451, type: 3}
