@@ -8,6 +8,7 @@ public class EnemyShipAI : MonoBehaviour
     [Space(10)]
     [SerializeField] private float rotationalDamp = .5f;
     [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] [Range(5, 300)] private float avoidenceRadius = 10f;
     [Header("A T T A C K")]
     [SerializeField]
     private Laser[] LASERS;
@@ -59,6 +60,9 @@ public class EnemyShipAI : MonoBehaviour
     public bool isDead;
     public GameObject healthBar;
 
+    private Vector3 avoidenceOffsetVect = new Vector3(3,3,3);
+
+
     public event Action<float> OnHealthPctChanged = delegate { };
 
     private void Start()
@@ -73,6 +77,8 @@ public class EnemyShipAI : MonoBehaviour
 
     private void Update()
     {
+        DetectNearbyObj(avoidenceRadius);
+
         Turning();
         Moving();
 
@@ -93,11 +99,20 @@ public class EnemyShipAI : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Ship")
+        {
+            rb.AddForceAtPosition(Vector3.up * 10f, transform.position);
+        }
+    }
+
     // MOVEMENT
 
     private void Turning()
     {
         Vector3 position = target.position - transform.position;
+        Vector3 choosenPos = bTurnOffset ? position + avoidenceOffsetVect : position;
         Quaternion rotation = Quaternion.LookRotation(position);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
     }
@@ -252,4 +267,34 @@ public class EnemyShipAI : MonoBehaviour
         CollectableManager.Instance.SPAWN_RANDOM_COLLECTABLE(transform);
         Destroy(gameObject);
     }
+
+    private bool bTurnOffset;
+    private void DetectNearbyObj(float radius)
+    {
+        Collider[] objects = Physics.OverlapSphere(transform.position, radius);
+        if(objects != null)
+        {
+            foreach (Collider obj in objects)
+            {
+                if (obj.transform.tag == "Ship")
+                {
+                    bTurnOffset = true;
+                }
+            }
+        }
+        else
+        {
+            bTurnOffset = false;
+        }
+
+    }
+
+
+    #region Gizmos
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, avoidenceRadius);
+    }
+    #endregion
 }
