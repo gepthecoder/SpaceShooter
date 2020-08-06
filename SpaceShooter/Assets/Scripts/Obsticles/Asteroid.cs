@@ -118,7 +118,6 @@ public class Asteroid : MonoBehaviour
         ScoreManager.Instance.UPDATE_SCORE(hitPoints);
         ScoreManager.Instance.PLAY_RANDOM_POP_UP(hitPoints.ToString());
 
-        Debug.Log("Asteroid damaged by: " + _damage);
         if (health <= 0)
         {
             Explode();
@@ -135,7 +134,23 @@ public class Asteroid : MonoBehaviour
         ScoreManager.Instance.PLAY_RANDOM_POP_UP(destroyPoints.ToString());
 
         KillManager.Instance.IncreaseDestructionRage(10);
-        Destroy(gameObject, 3f);
+        StartCoroutine(REWARD());
+    }
+
+    IEnumerator REWARD()
+    {
+        bool crystal = Random.Range(0, 10) > 6;
+        yield return new WaitForSeconds(3f);
+        if (crystal)
+        {
+            CollectableManager.Instance.SPAWN_CRYSTAL(transform);
+        }
+        else
+        {
+            CollectableManager.Instance.SPAWN_DIAMOND(transform);
+        }
+        Destroy(gameObject);
+
     }
 
     public void PLAY_SOUND(bool destroy)

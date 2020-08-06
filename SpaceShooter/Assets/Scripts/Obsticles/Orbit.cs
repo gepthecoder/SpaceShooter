@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
-    [Range(0, 1000)][SerializeField] private float rotationSpeed = 5f;
+    [Range(0, 1000)][SerializeField] private float rotationSpeed = 5f; 
 
     private void Update()
     {
