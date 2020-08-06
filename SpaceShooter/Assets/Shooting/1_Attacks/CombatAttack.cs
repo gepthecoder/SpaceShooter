@@ -41,6 +41,9 @@ public class CombatAttack : MonoBehaviour
     public float hitForce = 2f;
     [Range(1f, 100f)]
     public float explosionRadius = 10f;
+    [Range(0f, 1f)]
+    public float hitSoundVolume = .3f;
+
 
     GameObject hittedGameObject = null;
 
@@ -127,7 +130,7 @@ public class CombatAttack : MonoBehaviour
 
 		myAudioSource.clip = ac;
 
-		myAudioSource.PlayOneShot(myAudioSource.clip, .1f);
+		myAudioSource.PlayOneShot(myAudioSource.clip, hitSoundVolume);
 	}
 
 	void VelocityZOrigine ()
@@ -214,7 +217,7 @@ public class CombatAttack : MonoBehaviour
 
             if(hittedGameObject != null)
             {
-                Debug.Log("<color=red>Hitted: </color>" + hittedGameObject.tag);
+                //Debug.Log("<color=red>Hitted: </color>" + hittedGameObject.tag);
                 if (hittedGameObject.tag == "Enemy")
                 {
                     if (isEnemySpaceShipProjectile) { return; }

@@ -21,10 +21,14 @@ public class GameOverManager : MonoBehaviour
     #endregion
 
     [SerializeField] private Animator darkenScreenAnime;
+    [SerializeField] private AudioSource game_over_source;
+
 
     public void GAME_OVER()
     {
         darkenScreenAnime.SetTrigger("darken");
+        game_over_source.Play();
+        Debug.Log("Play Game OvER");
     }
 
     public void PLAY_AGAIN()
