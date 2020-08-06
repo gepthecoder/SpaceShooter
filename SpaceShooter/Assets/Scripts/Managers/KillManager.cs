@@ -22,7 +22,6 @@ public class KillManager : MonoBehaviour
         set { instance = value; }
     }
 
-    void Awake() { instance = this; }
     #endregion
 
     [SerializeField] private Animator[] popUpAnimators;
@@ -31,12 +30,34 @@ public class KillManager : MonoBehaviour
     [SerializeField] private float fillSpeedInSec = .5f;
     public int destructionCounter;
 
+    //BOOSTER
+    [SerializeField] private Text numOfBoostersText;
+    public int numOfBoosters;
+
+
     private int maxRage = 100;
     private bool bCanPerformHyperJump;
     public bool bActivateHyperJump;
 
     private Button hyperButton;
     private Animator fillImageAnime;
+
+
+    void Awake()
+    {
+        instance = this;
+
+        if (PlayerPrefs.HasKey("BOOSTERS"))
+        {
+            // WE HAD A PREVIOUS SESSION
+            numOfBoosters = PlayerPrefs.GetInt("BOOSTERS", 0);
+        }
+        else
+        {
+            SAVE_PREFS();
+        }
+    }
+
 
     void Start()
     {
@@ -48,6 +69,7 @@ public class KillManager : MonoBehaviour
         fillImageAnime = destructionFillImage.GetComponent<Animator>();
 
         hyperJumpButtonObj.SetActive(false);
+        update_NumOfBoostersText();
     }
 
     void Update()
@@ -74,6 +96,29 @@ public class KillManager : MonoBehaviour
 
     private void SlowTime() { Time.timeScale = .5f; }
     private void DefaultTime() { Time.timeScale = 1f; }
+
+    public void SAVE_PREFS()
+    {
+        PlayerPrefs.SetInt("BOOSTERS", numOfBoosters);
+
+    }
+    
+    public void update_NumOfBoostersText()
+    {
+        numOfBoostersText.text = numOfBoosters.ToString();
+    }
+
+    public void USE_BOOSTER()
+    {
+        if(numOfBoosters > 0)
+        {
+            numOfBoosters--;
+            update_NumOfBoostersText();
+            SAVE_PREFS();
+
+            destructionCounter += 20;
+        }
+    }
 
     private IEnumerator HYPER_EFFECT_GUI()
     {

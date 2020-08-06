@@ -14,12 +14,6 @@ public class GameOverTrigger : MonoBehaviour
 
     private void SetHighScoreText()
     {
-        if(ScoreManager.Instance.SCORE > ScoreManager.Instance.BEST_SCORE)
-        {
-            Debug.Log("New Best Score!! :)");
-            ScoreManager.Instance.BEST_SCORE = ScoreManager.Instance.SCORE;
-            ScoreManager.Instance.SAVE_SCORE();
-        }
         highScoreText.text = PlayerPrefs.GetInt("BEST_SCORE", 0).ToString();
     }
 }

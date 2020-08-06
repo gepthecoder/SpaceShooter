@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
     public enum SCORE_EFFECTS { Yellow, Purple, Blue, Orange }
 
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text bestScoreText;
 
     public Animator[] scorePopUps;
     public int SCORE = 0;
@@ -45,11 +46,21 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         scoreText.text = "SCORE: " + SCORE;
+        bestScoreText.text = "BEST: " + BEST_SCORE;
+    }
+
+    void Update()
+    {
+        if(SCORE > BEST_SCORE)
+        {
+            BEST_SCORE = SCORE;
+            bestScoreText.text = "BEST: " + BEST_SCORE;
+        }
     }
 
     public void SAVE_SCORE()
     {
-        PlayerPrefs.SetInt("SCORE", BEST_SCORE);
+        PlayerPrefs.SetInt("BEST_SCORE", BEST_SCORE);
     }
 
     public void UPDATE_SCORE(int byAmount)
@@ -69,6 +80,11 @@ public class ScoreManager : MonoBehaviour
                 scoreText.text = "SCORE: " + SCORE;
             }
             yield return new WaitForSeconds(.01f);
+        }
+
+        if(SCORE >= BEST_SCORE)
+        {
+            SAVE_SCORE();
         }
     }
 

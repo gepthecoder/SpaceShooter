@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
@@ -24,6 +25,16 @@ public class GameOverManager : MonoBehaviour
     public void GAME_OVER()
     {
         darkenScreenAnime.SetTrigger("darken");
+    }
+
+    public void PLAY_AGAIN()
+    {
+        SceneManager.LoadScene("GamePlay");
+    }
+
+    public void MAIN_MENU()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
 
