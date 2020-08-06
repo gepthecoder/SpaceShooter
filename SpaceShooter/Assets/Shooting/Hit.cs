@@ -58,6 +58,6 @@ public class Hit : MonoBehaviour
 
 		myAudioSource.clip = ac;
 
-		myAudioSource.PlayOneShot(myAudioSource.clip, 1f);
+		myAudioSource.PlayOneShot(myAudioSource.clip, .2f);
 	}
 }

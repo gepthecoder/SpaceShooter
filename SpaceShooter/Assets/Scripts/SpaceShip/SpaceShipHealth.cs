@@ -5,6 +5,19 @@ using UnityEngine.UI;
 
 public class SpaceShipHealth : MonoBehaviour
 {
+    #region Singleton
+    private static SpaceShipHealth instance;
+    public static SpaceShipHealth Instance
+    {
+        get
+        {
+            if (instance == null) { instance = FindObjectOfType(typeof(SpaceShipHealth)) as SpaceShipHealth; }
+            return instance;
+        }
+        set { instance = value; }
+    }
+    #endregion
+
     [Header("H E A L T H")]
     [Space(5)]
     [SerializeField] private int maxHealth = 200;
@@ -31,6 +44,11 @@ public class SpaceShipHealth : MonoBehaviour
     [SerializeField]
     private AudioClip explosionClip;
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -54,6 +72,7 @@ public class SpaceShipHealth : MonoBehaviour
         StartCoroutine(ChangeToPct((float)currentHealth / (float)maxHealth));
         UpdateHealthInfo();
         AddExplosionEffect();
+        //Vibrate.VibrateDevice(200);
 
         if (currentHealth <= 0)
         {

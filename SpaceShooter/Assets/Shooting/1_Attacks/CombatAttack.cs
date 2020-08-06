@@ -109,7 +109,6 @@ public class CombatAttack : MonoBehaviour
 
 			if(myAudioSource == null)
 				myAudioSource = gameObject.AddComponent<AudioSource>();
-            myAudioSource.volume = .5f;
         }
 	}
 
@@ -122,14 +121,13 @@ public class CombatAttack : MonoBehaviour
 			return;
 
 		myAudioSource.Stop ();
-        myAudioSource.volume = .1f;
 		myAudioSource.playOnAwake = false;
 
 		myAudioSource.loop = false;
 
 		myAudioSource.clip = ac;
 
-		myAudioSource.PlayOneShot(myAudioSource.clip, 1f);
+		myAudioSource.PlayOneShot(myAudioSource.clip, .1f);
 	}
 
 	void VelocityZOrigine ()
@@ -219,28 +217,32 @@ public class CombatAttack : MonoBehaviour
                 Debug.Log("<color=red>Hitted: </color>" + hittedGameObject.tag);
                 if (hittedGameObject.tag == "Enemy")
                 {
-                    if (hittedGameObject.transform.parent.name.Contains("Ship"))
-                    {
-                        EnemyShipAI enemyHealth = hittedGameObject.transform.root.GetComponent<EnemyShipAI>();
-                        if (enemyHealth != null)
-                        {
-                            enemyHealth.DamageEnemy(projectileDamage);
-                        }
-                    }
-                    else
-                    {
-                        EnemyHealth enemyHealth = hittedGameObject.GetComponent<EnemyHealth>();
+                    if (isEnemySpaceShipProjectile) { return; }
 
-                        if (enemyHealth != null)
-                        {
-                            enemyHealth.DamageEnemy(projectileDamage);
-                        }
+                    EnemyHealth enemyHealth = hittedGameObject.GetComponent<EnemyHealth>();
+
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.DamageEnemy(projectileDamage);
                     }
 
                     Rigidbody rb = hittedGameObject.GetComponent<Rigidbody>();
                     if(rb!=null)
                         rb.AddExplosionForce(hitForce, toInstantiatePosition, explosionRadius, 8f, ForceMode.Impulse);
 
+                }else if(hittedGameObject.tag == "Ship")
+                {
+                    if (isEnemySpaceShipProjectile) { return; }
+
+                    EnemyShipAI enemyHealth = hittedGameObject.GetComponentInParent<EnemyShipAI>();
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.DamageEnemy(projectileDamage);
+                    }
+
+                    Rigidbody rb = hittedGameObject.GetComponent<Rigidbody>();
+                    if (rb != null)
+                        rb.AddExplosionForce(hitForce, toInstantiatePosition, explosionRadius, 8f, ForceMode.Impulse);
                 }
                 else if (hittedGameObject.tag == "Asteroid")
                 {
@@ -265,6 +267,16 @@ public class CombatAttack : MonoBehaviour
                         Rigidbody rb = playerHealth.GetComponent<Rigidbody>();
                         if (rb != null)
                             rb.AddExplosionForce(hitForce, toInstantiatePosition, explosionRadius, 8f, ForceMode.Impulse);
+                    }
+                }
+                else if (hittedGameObject.GetComponent<Destructable>() !=  null)
+                {
+                    if (isEnemySpaceShipProjectile) { return; }
+
+                    Destructable health = hittedGameObject.GetComponent<Destructable>();
+                    if (health != null)
+                    {
+                        health.DamagePlanet(projectileDamage * 2);
                     }
                 }
                 else { Debug.Log("Hitted something else: " + hittedGameObject.name); }

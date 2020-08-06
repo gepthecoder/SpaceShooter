@@ -102,6 +102,7 @@ public class SpaceShipMovement : MonoBehaviour
         float baseSpeed = bIsAcceleratingToSpeedOfLight ? fHyperSpeedOfShip : fSpeedOfShip;
         float inputMultiplier = bIsAcceleratingToSpeedOfLight ? 1f : verticalAxisInput;
         float temp = baseSpeed * multiplier * inputMultiplier;
+        if(temp < 0) { temp = 0; }
         spaceShipSpeedTxt.text = temp.ToString() + " mph";
     }
 }

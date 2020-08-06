@@ -40,21 +40,22 @@ public class Laser : MonoBehaviour
             Debug.Log("Hit info: " + hitInfo.transform.tag);
             if (hitInfo.transform.tag == "Enemy")
             {
-                if (hitInfo.transform.name.Contains("Ship"))
-                {
-                    EnemyShipAI health = hitInfo.transform.GetComponent<EnemyShipAI>();
-                    if (health != null)
-                        health.DamageEnemy(laserDamage);
-                }
-                else
-                {
-                    EnemyHealth health = hitInfo.transform.GetComponent<EnemyHealth>();
-                    if (health != null)
-                        health.DamageEnemy(laserDamage);
-                }
-            
+                EnemyHealth health = hitInfo.transform.GetComponent<EnemyHealth>();
+                if (health != null)
+                    health.DamageEnemy(laserDamage);
+
                 Rigidbody rb = hitInfo.transform.GetComponent<Rigidbody>();
                 if(rb != null)
+                    rb.AddExplosionForce(hitForce, hitInfo.point, explosionRadius, 4f, ForceMode.Impulse);
+            }
+            else if(hitInfo.transform.tag == "Ship")
+            {
+                EnemyShipAI health = hitInfo.transform.GetComponentInParent<EnemyShipAI>();
+                if (health != null)
+                    health.DamageEnemy(laserDamage);
+
+                Rigidbody rb = hitInfo.transform.GetComponentInParent<Rigidbody>();
+                if (rb != null)
                     rb.AddExplosionForce(hitForce, hitInfo.point, explosionRadius, 4f, ForceMode.Impulse);
             }
             else if (hitInfo.transform.tag == "Asteroid")
@@ -66,6 +67,10 @@ public class Laser : MonoBehaviour
                 Rigidbody rb = hitInfo.transform.name == "Collider" ? hitInfo.transform.parent.GetComponent<Rigidbody>() : hitInfo.transform.GetComponent<Rigidbody>();
                 if (rb != null)
                     rb.AddExplosionForce(hitForce + 20f, hitInfo.point, explosionRadius, 4f, ForceMode.Impulse);
+            }
+            else if(hitInfo.transform.GetComponent<Destructable>() != null)
+            {
+                hitInfo.transform.GetComponent<Destructable>().DamagePlanet(laserDamage * 2);
             }
             else { Debug.Log("You have missed!"); }
 
@@ -80,6 +85,7 @@ public class Laser : MonoBehaviour
 
     public void FireSuperSonicLaser()
     {
+        //Vibrate.VibrateDevice(1000);
         Vector3 pos = CastLaserRay();
         FireSuperSonicLaser(pos);
     }
