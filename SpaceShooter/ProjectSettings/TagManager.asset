@@ -9,6 +9,7 @@ TagManager:
   - FxTemporaire
   - Asteroid
   - cleanUp
+  - Ship
   layers:
   - Default
   - TransparentFX
