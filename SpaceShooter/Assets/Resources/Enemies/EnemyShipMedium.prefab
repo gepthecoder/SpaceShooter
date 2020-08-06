@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6874210298903902650}
   m_Layer: 0
   m_Name: StarSparrow_Core
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 6874210298993671455}
   m_Layer: 0
   m_Name: StarSparrow_Thruster
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 6874210299471718704}
   m_Layer: 0
   m_Name: StarSparrow_Plasma
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 6874210299668645820}
   m_Layer: 0
   m_Name: StarSparrow_Weapon (1)
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6256,7 +6256,7 @@ GameObject:
   - component: {fileID: 6874210299993653337}
   m_Layer: 0
   m_Name: StarSparrow_Weapon
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7177,7 +7177,7 @@ GameObject:
   - component: {fileID: 6874210300263442328}
   m_Layer: 0
   m_Name: StarSparrow_Engine
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12233,9 +12233,10 @@ GameObject:
   - component: {fileID: 6874210300381580419}
   - component: {fileID: 6874210300381580418}
   - component: {fileID: 6874210300381580417}
+  - component: {fileID: 7104769933687650308}
   m_Layer: 0
   m_Name: EnemyShipMedium
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12291,12 +12292,12 @@ MonoBehaviour:
   LASERS:
   - {fileID: 6874210300123679411}
   - {fileID: 6874210300585526493}
-  maxDistance: 200
+  maxDistance: 1000
   fireRate: 2
   Missile: {fileID: 1224811046360095131, guid: 12f0e5b3d9543e946a58677f7fb1ebaa, type: 3}
   shootPosL: {fileID: 6874210299667098964}
   shootPosR: {fileID: 6874210300967118093}
-  maxHealth: 50
+  maxHealth: 43
   explosionEffect: {fileID: 5975817424362149743, guid: eb7e7b833832ab24aae930254fd1fc20,
     type: 3}
   currentHealth: 0
@@ -12304,6 +12305,9 @@ MonoBehaviour:
   hitPoints: 60
   deathExplosionRadius: 4
   deathExplosionForce: 100
+  deathExplosionSource: {fileID: 7104769933687650308}
+  deathExplosionSoundFX: {fileID: 8300000, guid: f1b53db355b9bb149b6a892b36e17890,
+    type: 3}
   isDead: 0
   healthBar: {fileID: 6874210300261083978}
 --- !u!54 &6874210300381580418
@@ -12335,6 +12339,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpAnime: {fileID: 6874210300921521155}
+--- !u!82 &7104769933687650308
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874210300381580416}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.289
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6874210300457413017
 GameObject:
   m_ObjectHideFlags: 0
@@ -12349,7 +12449,7 @@ GameObject:
   - component: {fileID: 6874210300457413019}
   m_Layer: 0
   m_Name: StarSparrow_Wing_2 (2)
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12445,7 +12545,7 @@ GameObject:
   - component: {fileID: 6874210300471774442}
   m_Layer: 0
   m_Name: StarSparrow_Thruster
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12543,7 +12643,7 @@ GameObject:
   - component: {fileID: 6874210300535236194}
   m_Layer: 0
   m_Name: StarSparrow_Plasma (1)
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12641,7 +12741,7 @@ GameObject:
   - component: {fileID: 6874210300562271845}
   m_Layer: 0
   m_Name: StarSparrow_Wing_2 (1)
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12737,7 +12837,7 @@ GameObject:
   - component: {fileID: 6874210300578703925}
   m_Layer: 0
   m_Name: StarSparrow_Thruster
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13092,7 +13192,7 @@ GameObject:
   - component: {fileID: 6874210300672575690}
   m_Layer: 0
   m_Name: StarSparrow_Wing_1
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13189,7 +13289,7 @@ GameObject:
   - component: {fileID: 6874210300711529537}
   m_Layer: 0
   m_Name: StarSparrow_Wing_1 (1)
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13286,7 +13386,7 @@ GameObject:
   - component: {fileID: 6874210300714895796}
   m_Layer: 0
   m_Name: StarSparrow_Wing_2
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18241,7 +18341,7 @@ GameObject:
   - component: {fileID: 6874210300808812429}
   m_Layer: 0
   m_Name: StarSparrow_Engine (1)
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18411,7 +18511,7 @@ GameObject:
   - component: {fileID: 6874210300826817078}
   m_Layer: 0
   m_Name: StarSparrow_Wing_2
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18507,7 +18607,7 @@ GameObject:
   - component: {fileID: 6874210300917238998}
   m_Layer: 0
   m_Name: StarSparrow_Wing_2
-  m_TagString: Enemy
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
